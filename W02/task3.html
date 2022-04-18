@@ -45,9 +45,9 @@
 
             function AreaOfTriangle(x,y,z)
             {
-                var s = (Vec3.v0.length()+Vec3.v1.length()+Vec3.v2.length()) / 2;
+                var s = (x.length()+y.length()+z.length()) / 2;
 
-                return Math.sqrt(s*(s-Vec3.v0.length())*(s-Vec3.v2.length())*(s-Vec3.v2.length()));
+                return Math.sqrt(s*(s-x.length())*(s-y.length())*(s-z.length()));
             }
 
             var button = document.getElementById("button");
