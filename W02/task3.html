@@ -11,11 +11,16 @@
             2つ目の座標を入力
             <label for="x1">x座標:</label><input type="text" id="x1">
             <label for="y1">y座標:</label><input type="text" id="y1">
-            <label for="z1">z座標:</label><input type="text" id="z1">
+            <label for="z1">z座標:</label><input type="text" id="z1"><br>
             3つ目の座標を入力
             <label for="x2">x座標:</label><input type="text" id="x2">
             <label for="y2">y座標:</label><input type="text" id="y2">
-            <label for="z2">z座標:</label><input type="text" id="z2">
+            <label for="z2">z座標:</label><input type="text" id="z2"><br>
+
+            <button id="button">計算</button>
+            <label for="resultForm">計算結果:</label>
+            <input type="text" id="resultForm">
+        </form>>
 
         <script src="vec3.js"></script>
 	    <script>
@@ -45,8 +50,19 @@
                 return Math.sqrt(s*(s-Vec3.x.length())*(s-Vec3.y.length())*(s-Vec3.z.length()));
             }
 
+            var button = document.getElementById("button");
+
             var S = AreaOfTriangle( v0, v1, v2 );
             document.write(S);
+
+            button.addEventListener("click", function(e) {
+ 
+                e.preventDefault();
+
+                var resultForm = document.getElementById("resultForm");
+                resultForm.value = s;
+            });
+
 	    </script>
     </body>
 </html>
