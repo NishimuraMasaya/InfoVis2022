@@ -53,14 +53,13 @@
             var button = document.getElementById("button");
 
             var S = AreaOfTriangle( v0, v1, v2 );
-            document.write(S);
 
             button.addEventListener("click", function(e) {
  
                 e.preventDefault();
 
                 var resultForm = document.getElementById("resultForm");
-                resultForm.value = s;
+                resultForm.value = S;
             });
 
 	    </script>
