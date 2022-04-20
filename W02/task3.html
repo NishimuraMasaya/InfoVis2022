@@ -43,7 +43,7 @@
             var v1 = new Vec3( x1, y1, z1 );
             var v2 = new Vec3( x2, y2, z2 );
 
-            function AreaOfTriangle(x,y,z)
+            function AreaOfTriangle(a,b,c)
             {
                 const ab = b.sub( a ), ac = c.sub( a );
 	            return ab.cross( ac ).length() / 2;
