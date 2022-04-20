@@ -45,16 +45,15 @@
 
             function AreaOfTriangle(x,y,z)
             {
-                var s = (x.length()+y.length()+z.length()) / 2;
-
-                return Math.sqrt(s*(s-x.length())*(s-y.length())*(s-z.length()));
+                const ab = b.sub( a ), ac = c.sub( a );
+	            return ab.cross( ac ).length() / 2;
             }
 
-            var button = document.getElementById("button");
+            var element = document.getElementById("button");
 
             var S = AreaOfTriangle( v0, v1, v2 );
 
-            button.addEventListener("click", function(e) {
+            element.addEventListener("click", function(e) {
  
                 e.preventDefault();
 
