@@ -18,7 +18,7 @@
 	            .attr("width", function(d){ return d.width; })
                 .attr("height", height)
                 .style("fill", function(d){ return d.color; })
-				.text("Label" + i)
+				.text("Label" + function(d,i){return i;})
 	    } );
 	</script>
     </body>
