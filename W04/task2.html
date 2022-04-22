@@ -13,7 +13,7 @@
 	            .data(data)
 	            .enter()
 	            .append("rect")
-	            .attr("x", padding+10)
+	            .attr("x", padding+50)
 	            .attr("y", function(d,i){ return padding + i * ( height + padding ); })
 	            .attr("width", function(d){ return d.width; })
                 .attr("height", height)
@@ -25,7 +25,7 @@
    				.append("text")
    				.text("Label" + function(d,i) {return i;})
 				.attr("x", 10)
-				.attr("y", function(d,i){ return padding + i * ( height + padding );})
+				.attr("y", function(d,i){ return padding + i * ( height + padding );} + height/2)
 	    });
 	</script>
     </body>
