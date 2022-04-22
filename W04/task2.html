@@ -23,7 +23,7 @@
    				.data(data)
    				.enter()
    				.append("text")
-   			text = draw.text('Data' + function(d,i){ return i+1; })
+   				.text('Label' , function(d,i){ return i; })
 				.attr("x", 10)
 				.attr("y", function(d,i){ return padding + i * ( height + padding ) ;})
 	    });
