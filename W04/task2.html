@@ -23,9 +23,9 @@
    				.data(data)
    				.enter()
    				.append("text")
-   				.text("Data"+function(d,i){ return i + 1; })
+   				.text("Data"+function(d,i){return i + 1;}.toString())
 				.attr("x", 10)
-				.attr("y", function(d,i){ return padding + i * ( height + padding ) + height ;})
+				.attr("y", function(d,i){ return padding + i * ( height + padding ) + 25;})
 	    });
 	</script>
     </body>
