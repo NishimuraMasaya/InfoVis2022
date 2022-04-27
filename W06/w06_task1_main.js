@@ -1,4 +1,4 @@
-d3.csv("https://NishimuraMasaya.github.io/InfoVis2022/W04/data.csv")
+d3.csv("https://NishimuraMasaya.github.io/InfoVis2022/W04/w04_task1.csv")
     .then( data => {
         data.forEach( d => { d.x = +d.x; d.y = +d.y; });
 
@@ -48,12 +48,17 @@ class ScatterPlot {
         self.yscale = d3.scaleLinear()
             .range( [0, self.inner_height] );
 
+        self.xaxis = d3.axisBottom( self.xscale )
+            .ticks(6);
+
+        self.xaxis_group = self.chart.append('g')
+            .attr('transform', `translate(0, 0)`);
+
         self.yaxis = d3.axisLeft( self.yscale )
             .ticks(6)
-            .tickSize(10,20);
 
         self.yaxis_group = self.chart.append('g')
-            .attr('transform', `translate(0,${self.inner_width})`);
+            .attr('transform', `translate(0, 0)`);
     }
 
     update() {
@@ -81,6 +86,8 @@ class ScatterPlot {
             .attr("cy", d => self.yscale( d.y ) )
             .attr("r", d => d.r );
 
+        self.xaxis_group
+            .call( self.xaxis ); 
         self.yaxis_group
             .call( self.yaxis );
     }
