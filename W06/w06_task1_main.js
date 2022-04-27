@@ -53,7 +53,7 @@ class ScatterPlot {
             .tickSize(10,20);
 
         self.yaxis_group = self.chart.append('g')
-            .attr('transform', `translate(${self.inner_width}, 0)`);
+            .attr('transform', `translate(0,${self.inner_width})`);
     }
 
     update() {
