@@ -53,7 +53,8 @@ class ScatterPlot {
             .tickSize(10);
 
         self.xaxis_group = self.chart.append('g')
-            .attr('transform', `translate(0, ${self.inner_height})`);
+            .attr('transform', `translate(0, ${self.inner_height})`)
+            .append('text').attr('transform', x('label')).text("X-label");
 
         self.yaxis = d3.axisLeft( self.yscale )
             .ticks(6)
@@ -90,7 +91,8 @@ class ScatterPlot {
             .style("fill", d => d.color );
 
         self.xaxis_group
-            .call( self.xaxis ); 
+            .call( self.xaxis );
+
         self.yaxis_group
             .call( self.yaxis );
     }
