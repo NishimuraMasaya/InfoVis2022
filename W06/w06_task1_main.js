@@ -48,11 +48,11 @@ class ScatterPlot {
         self.yscale = d3.scaleLinear()
             .range( [0, self.inner_height] );
 
-        self.xaxis = d3.axisBottom( self.xscale )
+        self.yaxis = d3.axisBottom( self.yscale )
             .ticks(6);
 
-        self.xaxis_group = self.chart.append('g')
-            .attr('transform', `translate(0, ${self.inner_height})`);
+        self.yaxis_group = self.chart.append('g')
+            .attr('transform', `translate(0, ${self.inner_width})`);
     }
 
     update() {
@@ -80,7 +80,7 @@ class ScatterPlot {
             .attr("cy", d => self.yscale( d.y ) )
             .attr("r", d => d.r );
 
-        self.xaxis_group
-            .call( self.xaxis );
+        self.yaxis_group
+            .call( self.yaxis );
     }
 }
