@@ -48,7 +48,7 @@ class ScatterPlot {
         self.yscale = d3.scaleLinear()
             .range( [0, self.inner_height] );
 
-        self.yaxis = d3.axisBottom( self.yscale )
+        self.yaxis = d3.axisLeft( self.yscale )
             .ticks(6);
 
         self.yaxis_group = self.chart.append('g')
