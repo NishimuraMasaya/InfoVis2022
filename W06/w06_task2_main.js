@@ -6,7 +6,7 @@ d3.csv("https://NishimuraMasaya.github.io/InfoVis2022/W04/w04_task1.csv")
             parent: '#drawing_region',
             width: 256,
             height: 256,
-            margin: {top:10, right:10, bottom:30, left:30}
+            margin: {top:30, right:10, bottom:50, left:50}
         };
 
         const scatter_plot = new ScatterPlot( config, data );
@@ -43,25 +43,24 @@ class ScatterPlot {
         self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom;
 
         self.xscale = d3.scaleLinear()
-            .range( [0, self.inner_width] );
+            .range( [0 , self.inner_width] );
 
         self.yscale = d3.scaleLinear()
-            .range( [0, self.inner_height] );
+            .range( [self.inner_height, 0] );
 
         self.xaxis = d3.axisBottom( self.xscale )
             .ticks(6)
             .tickSize(10);
 
         self.xaxis_group = self.chart.append('g')
-            .attr('transform', `translate(0, ${self.inner_height})`)
-            .append('text').attr('transform', x('label')).text("X-label");
+            .attr('transform', `translate(0, ${self.inner_height})`);
 
         self.yaxis = d3.axisLeft( self.yscale )
             .ticks(6)
             .tickSize(10);
 
         self.yaxis_group = self.chart.append('g')
-            .attr('transform', `translate(0, 0)`);
+            .attr('ransform', `translate(0, 0)`);
     }
 
     update() {
@@ -91,9 +90,35 @@ class ScatterPlot {
             .style("fill", d => d.color );
 
         self.xaxis_group
-            .call( self.xaxis );
+            .call( self.xaxis )
+            .append("text")
+                .attr("fill", "red")
+                .attr("x", (self.inner_width/2))
+                .attr("y", 35)
+                .attr("text-anchor", "middle")
+                .attr("font-size", "12pt")
+                .attr("font-weight", "middle")
+                .text("X-label");
 
         self.yaxis_group
-            .call( self.yaxis );
+            .call( self.yaxis )
+            .append("text")    
+                .attr("fill", "red")
+                .attr("x", -(self.inner_height/2))
+                .attr("y", -35)
+                .attr("transform", "rotate(-90)")
+                .attr("text-anchor", "middle")
+                .attr("font-size", "12pt")
+                .attr("font-weight", "middle")
+                .text("Y-label");
+
+        self.svg
+                .append("text")
+                .attr("x", (self.config.width)/2)
+                .attr("y", 20)
+                .attr("font-size", "15pt")
+                .attr("text-anchor", "middle")
+                .attr("font-weight", 700)
+                .text("タイトル");
     }
 }
