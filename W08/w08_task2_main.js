@@ -6,7 +6,7 @@ d3.csv("https://NishimuraMasaya.github.io/InfoVis2022/W08/w08_task2.csv")
             parent: '#drawing_region',
             width: 256,
             height: 256,
-            margin: {top:50, right:10, bottom:20, left:60}
+            margin: {top:50, right:10, bottom:50, left:50}
         };
 
         const scatter_plot = new ScatterPlot( config, data );
@@ -42,15 +42,11 @@ class ScatterPlot {
         self.inner_width = self.config.width - self.config.margin.left - self.config.margin.right;
         self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom;
 
-        self.line = d3.line()
-            .x( d => d.x)
-            .y( d => d.y);
-
         self.xscale = d3.scaleLinear()
             .range( [0, self.inner_width] );
 
         self.yscale = d3.scaleLinear()
-            .range( [0, self.inner_height] )
+            .range( [self.inner_height, 0] )
 
         self.xaxis = d3.axisBottom( self.xscale )
             .ticks(5)
@@ -85,16 +81,49 @@ class ScatterPlot {
     render() {
         let self = this;
 
-        self.svg
+        const line = d3.line()
+            .x( d => d.x )
+            .y( d => d.y );
+
+        self.chart.selectAll('path')
+            .data(self.data)
+            .enter()
             .append('path')
-            .attr('d', line(data))
+            .attr('d', line(self.data))
             .attr('stroke', 'black')
             .attr('fill', 'none');
 
         self.xaxis_group
-            .call( self.xaxis ); 
+            .call( self.xaxis )
+            .append("text")
+                .attr("fill", "red")
+                .attr("x", (self.inner_width/2))
+                .attr("y", 35)
+                .attr("text-anchor", "middle")
+                .attr("font-size", "12pt")
+                .attr("font-weight", "middle")
+                .text("X-label");
+
         self.yaxis_group
-            .call( self.yaxis );
+            .call( self.yaxis )
+            .append("text")    
+                .attr("fill", "red")
+                .attr("x", -(self.inner_height/2))
+                .attr("y", -35)
+                .attr("transform", "rotate(-90)")
+                .attr("text-anchor", "middle")
+                .attr("font-size", "12pt")
+                .attr("font-weight", "middle")
+                .text("Y-label");
+
+            self.chart.selectAll("circle")
+                .data(self.data)
+                .enter()
+                .append("circle")
+                .attr("cx",line.x())
+                .attr("cy",line.y())
+                .attr("r",5)
+                .attr("fill","#000");
 
         self.svg
             .append("text")
