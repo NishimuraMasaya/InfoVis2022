@@ -60,15 +60,15 @@ class ScatterPlot {
             .tickSizeOuter(0);
 
         self.yaxis_group = self.chart.append('g')
-        
+
     }
 
     update() {
         let self = this;
 
-        self.xscale.domain( [0 , d3.max(data, d => d.value)] );
+        self.xscale.domain( [0 , d3.max(self.data, d => d.value)] );
 
-        self.yscale.domain(data.map(d => d.label));
+        self.yscale.domain(self.data.map(d => d.label));
 
         self.render();
     }
@@ -82,8 +82,8 @@ class ScatterPlot {
             .append("rect")
             .attr("x", 0 )
             .attr("y", d => self.yscale( d.label ) )
-            .attr("width", d => self.xscale( d.label ) )
-            .attr("height", yscale.bandwidth() );
+            .attr("width", d => self.xscale( d.value ) )
+            .attr("height", self.yscale.bandwidth() );
 
         self.xaxis_group
             .call( self.xaxis ); 
