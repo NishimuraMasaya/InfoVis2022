@@ -6,8 +6,7 @@ d3.csv("https://NishimuraMasaya.github.io/InfoVis2022/W08/w08_task1.csv")
             parent: '#drawing_region',
             width: 256,
             height: 256,
-            radius: Math.min( width, height ) / 2,
-            margin: {top:50, right:10, bottom:20, left:60}
+            margin: {top:50, right:10, bottom:30, left:10}
         };
 
         const scatter_plot = new ScatterPlot( config, data );
@@ -24,7 +23,6 @@ class ScatterPlot {
             parent: config.parent,
             width: config.width || 256,
             height: config.height || 256,
-            radius: config.radius || Math.min( width, height ) / 2,
             margin: config.margin || {top:10, right:10, bottom:10, left:10}
         }
         this.data = data;
@@ -36,10 +34,10 @@ class ScatterPlot {
 
         self.svg = d3.select( self.config.parent )
             .attr('width', self.config.width)
-            .attr('height', self.config.height);
+            .attr('height', self.config.height + self.config.margin.top);
     
         self.chart = self.svg.append('g')
-            .attr('transform', `translate(${width/2}, ${height/2})`);
+            .attr('transform', `translate(${self.config.width/2}, ${self.config.height/2 + self.config.margin.top})`);
     }
 
     update() {
@@ -51,6 +49,8 @@ class ScatterPlot {
     render() {
         let self = this;
 
+        var radius = Math.min( self.config.width, self.config.height ) / 2;
+
         const pie = d3.pie()
             .value( d => d.value );
 
@@ -59,7 +59,7 @@ class ScatterPlot {
             .outerRadius(radius);
 
         self.chart.selectAll('pie')
-            .data( pie(data) )
+            .data( pie(self.data) )
             .enter()
             .append('path')
             .attr('d', arc)
