@@ -35,9 +35,20 @@ class ScatterPlot {
         self.svg = d3.select( self.config.parent )
             .attr('width', self.config.width)
             .attr('height', self.config.height + self.config.margin.top);
-    
-        self.chart = self.svg.append('g')
-            .attr('transform', `translate(${self.config.width/2}, ${self.config.height/2 + self.config.margin.top})`);
+
+        self.radius = Math.min( self.config.width, self.config.height ) / 2;
+
+        self.pie = d3.pie()
+            .value( d => d.value );
+
+        self.arc = d3.arc()
+            .innerRadius(0)
+            .outerRadius(self.radius);
+
+        self.text = d3.arc()
+            .innerRadius(self.radius - 30)
+            .outerRadius(self.radius - 30);
+
     }
 
     update() {
@@ -49,23 +60,27 @@ class ScatterPlot {
     render() {
         let self = this;
 
-        var radius = Math.min( self.config.width, self.config.height ) / 2;
-
-        const pie = d3.pie()
-            .value( d => d.value );
-
-        const arc = d3.arc()
-            .innerRadius(0)
-            .outerRadius(radius);
-
-        self.chart.selectAll('pie')
-            .data( pie(self.data) )
+        self.pieGroup = self.svg.selectAll('pie')
+            .data( self.pie(self.data) )
             .enter()
+            .append('g')
+            .attr('transform', `translate(${self.config.width/2}, ${self.config.height/2 + self.config.margin.top})`)
+            .attr('class', 'pie');
+
+        self.pieGroup
             .append('path')
-            .attr('d', arc)
+            .attr('d', self.arc)
             .attr('fill', 'black')
             .attr('stroke', 'white')
             .style('stroke-width', '2px');
+        
+        self.pieGroup.append("text")
+            .attr("fill", "white")
+            .attr("transform", function(d) { return "translate(" + self.text.centroid(d) + ")"; })
+            .attr("dy", "5px")
+            .attr("font", "10px")
+            .attr("text-anchor", "middle")
+            .text(function(d) {return d.data.label;});
 
         self.svg
             .append("text")
@@ -75,6 +90,5 @@ class ScatterPlot {
             .attr("text-anchor", "middle")
             .attr("font-weight", 700)
             .text("Sample data");
-
     }
 }

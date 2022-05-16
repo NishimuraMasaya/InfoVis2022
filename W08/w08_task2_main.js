@@ -39,6 +39,10 @@ class ScatterPlot {
         self.chart = self.svg.append('g')
             .attr('transform', `translate(${self.config.margin.left}, ${self.config.margin.top})`);
 
+        self.line = d3.line()
+            .x( d => d.x )
+            .y( d => d.y );
+
         self.inner_width = self.config.width - self.config.margin.left - self.config.margin.right;
         self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom;
 
@@ -81,15 +85,11 @@ class ScatterPlot {
     render() {
         let self = this;
 
-        const line = d3.line()
-            .x( d => d.x )
-            .y( d => d.y );
-
         self.chart.selectAll('path')
             .data(self.data)
             .enter()
             .append('path')
-            .attr('d', line(self.data))
+            .attr('d', self.line(self.data))
             .attr('stroke', 'black')
             .attr('fill', 'none');
 
@@ -120,8 +120,8 @@ class ScatterPlot {
                 .data(self.data)
                 .enter()
                 .append("circle")
-                .attr("cx",line.x())
-                .attr("cy",line.y())
+                .attr("cx",self.line.x())
+                .attr("cy",self.line.y())
                 .attr("r",5)
                 .attr("fill","#000");
 
