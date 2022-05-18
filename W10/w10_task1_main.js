@@ -76,15 +76,26 @@ class ScatterPlot {
     render() {
         let self = this;
 
-        self.chart.selectAll("rect")
-            .data(self.data)
-            .enter()
-            .append("rect")
-            .attr("x", 0 )
-            .attr("y", d => self.yscale( d.label ) )
-            .attr("width", d => self.xscale( d.value ) )
-            .attr("height", self.yscale.bandwidth() )
-            .style("fill", d => d.color );
+        update( self.data );
+
+        function update(data) {
+            let padding = 10;
+            let height = 20;
+            self.chart.selectAll("rect")
+                .data(data)
+                .enter()
+                .join("rect")
+                .attr("x", 0 )
+                .attr("y", d => self.yscale( d.label ) )
+                .attr("width", d => self.xscale( d.value ) )
+                .attr("height", self.yscale.bandwidth() );
+        }
+        
+        d3.select('#reverse')
+            .on('click', d => {
+                self.data.reverse();
+                update(self.data);
+            })
 
         self.xaxis_group
             .call( self.xaxis ); 
@@ -99,6 +110,5 @@ class ScatterPlot {
             .attr("text-anchor", "middle")
             .attr("font-weight", 700)
             .text("Sample data");
-
     }
 }
