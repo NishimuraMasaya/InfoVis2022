@@ -76,31 +76,41 @@ class ScatterPlot {
     render() {
         let self = this;
 
-        update( self.data );
-
-        function update(data) {
-            let padding = 10;
-            let height = 20;
-            self.chart.selectAll("rect")
-                .data(data)
-                .enter()
-                .join("rect")
-                .attr("x", 0 )
-                .attr("y", d => self.yscale( d.label ) )
-                .attr("width", d => self.xscale( d.value ) )
-                .attr("height", self.yscale.bandwidth() );
-        }
-        
-        d3.select('#reverse')
-            .on('click', d => {
-                self.data.reverse();
-                update(self.data);
-            })
+        self.chart.selectAll("rect")
+            .data(self.data)
+            .join("rect")
+            .attr("x", 0 )
+            .attr("y", d => self.yscale( d.label ) )
+            .attr("width", d => self.xscale( d.value ) )
+            .attr("height", self.yscale.bandwidth() )
+            .style("fill", d => d.color );
 
         self.xaxis_group
             .call( self.xaxis ); 
         self.yaxis_group
             .call( self.yaxis );
+
+        d3.select('#reverse')
+            .on('click', d => {
+                self.data.reverse();
+                self.update(self.data);
+            });
+
+        d3.select('#descend')
+            .on('click', d => {
+                self.data.sort(function(a,b){
+                    return b.value - a.value;
+                });
+                self.update(self.data);
+            });
+
+        d3.select('#ascend')
+            .on('click', d => {
+                self.data.sort(function(a,b){
+                    return a.value - b.value;
+                });
+                self.update(self.data);
+            });
 
         self.svg
             .append("text")
@@ -110,5 +120,6 @@ class ScatterPlot {
             .attr("text-anchor", "middle")
             .attr("font-weight", 700)
             .text("Sample data");
+
     }
 }
