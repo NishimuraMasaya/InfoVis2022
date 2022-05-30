@@ -3,7 +3,7 @@ let scatter_plot;
 let bar_chart;
 let filter = [];
 
-d3.csv("https://vizlab-kobe-lecture.github.io/InfoVis2021/W12/iris.csv")
+d3.csv("https://NishimuraMasaya.github.io/InfoVis2022/W12/iris.csv")
     .then( data => {
         input_data = data;
         input_data.forEach( d => {
