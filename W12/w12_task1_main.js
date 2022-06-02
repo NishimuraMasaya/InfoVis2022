@@ -2,17 +2,19 @@ let input_data;
 let scatter_plot;
 let bar_chart;
 let filter = [];
+let dayOfWeekStr = [ "日", "月", "火", "水", "木", "金", "土" ];
 
-d3.csv("https://vizlab-kobe-lecture.github.io/InfoVis2022/W12/nhk_news_covid19_domestic_daily_data.csv")
+d3.csv("https://NishimuraMasaya.github.io/InfoVis2022/W12/nhk_news_covid19_domestic_daily_data.csv")
     .then( data => {
         input_data = data;
         input_data.forEach( d => {
             d.infected_day = +d.infected_day;
             d.deaths_day = +d.death_day;
+            d.day = dayOfWeekStr[(input_data.indexOf(d)+2)%7]
         });
 
         const color_scale = d3.scaleOrdinal( d3.schemeCategory10 );
-        color_scale.domain(['setosa','versicolor','virginica']);
+        color_scale.domain(["日", "月", "火", "水", "木", "金", "土"]);
 
         scatter_plot = new ScatterPlot( {
             parent: '#drawing_region_scatterplot',
@@ -30,13 +32,13 @@ d3.csv("https://vizlab-kobe-lecture.github.io/InfoVis2022/W12/nhk_news_covid19_d
             width: 256,
             height: 256,
             margin: {top:10, right:10, bottom:50, left:50},
-            xlabel: 'Species',
+            xlabel: 'day of the week',
             cscale: color_scale
         }, input_data );
         bar_chart.update();
     })
     .catch( error => {
-        console.log( error );
+        document.write( error );
     });
 
 function Filter() {
