@@ -1,33 +1,16 @@
 <html>
     <head>
         <title>W12: Task 01</title>
-	<style>
-	 body {
-	     font-family: system-ui;
-	 }
-	 #tooltip {
-	     position: absolute;
-	     opacity: 0;
-	     background: #fff;
-	     border: 1px solid #ddd;
-	     font-size: 12px;
-	     font-weight: 600;
-	     padding: 2px 8px;
-	 }
-	 .tooltip-label {
-	     font-weight: 500;
-	     font-size: 11px;
-	     color: #888;
-	 }
-	</style>
     </head>
     <body>
 	<h2>Covid19 domestic daily data</h2>
 	<div id="tooltip"></div>
-	<svg id="drawing_region"></svg>
+	<div class="container">
+	    <div><svg id="drawing_region_scatterplot"></svg></div>
+	    <div><svg id="drawing_region_barchart"></svg></div>
+	</div>
 	<script src="https://d3js.org/d3.v6.min.js"></script>
 	<script src="w12_task1_ScatterPlot.js"></script>
-	<script src="w12_task1_BarChart.js"></script>
 	<script src="w12_task1_main.js"></script>
     </body>
 </html>
