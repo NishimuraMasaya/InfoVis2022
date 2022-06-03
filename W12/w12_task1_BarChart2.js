@@ -1,4 +1,4 @@
-class BarChart {
+class BarChart2 {
     constructor (config, data) {
         this.config = {
             parent: config.parent,
@@ -21,7 +21,7 @@ class BarChart {
             .attr('height', self.config.height);
 
         self.chart = self.svg.append('g')
-            .attr('transform', `translate(${self.config.margin.left}, ${self.config.margin.top})`);
+            .attr('transform', `translate(${self.config.margin.left} , ${self.config.margin.top})`);
 
         self.inner_width = self.config.width - self.config.margin.left - self.config.margin.right;
         self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom;
@@ -66,7 +66,7 @@ class BarChart {
     update() {
         let self = this;
 
-        const data_map = d3.rollup( self.data, d => d3.sum(d, d => d.infected_day), d => d.day );
+        const data_map = d3.rollup( self.data, d => d3.sum(d, d => d.deaths_day), d => d.day );
         self.aggregated_data = Array.from( data_map, ([key,count]) => ({key,count}) );
 
         self.cvalue = d => d.key;
@@ -108,6 +108,6 @@ class BarChart {
             .attr("font-size", "15pt")
             .attr("text-anchor", "middle")
             .attr("font-weight", 700)
-            .text("曜日ごとの感染者数");
+            .text("曜日ごとの死者数");
     }
 }

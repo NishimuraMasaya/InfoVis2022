@@ -100,23 +100,6 @@ class ScatterPlot {
             .attr("cy", d => self.yscale( self.yvalue(d) ) )
             .attr("fill", d => self.config.cscale( self.cvalue(d) ) );
 
-        circles
-            .on('mouseover', (e,d) => {
-                d3.select('#tooltip')
-                    .style('opacity', 1)
-                    .html(`<div class="tooltip-label">${d.day}</div>(${d.infected_day}, ${d.deaths_day})`);
-            })
-            .on('mousemove', (e) => {
-                const padding = 10;
-                d3.select('#tooltip')
-                    .style('left', (e.pageX + padding) + 'px')
-                    .style('top', (e.pageY + padding) + 'px');
-            })
-            .on('mouseleave', () => {
-                d3.select('#tooltip')
-                    .style('opacity', 0);
-            });
-
         self.xaxis_group
             .call( self.xaxis );
 

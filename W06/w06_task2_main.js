@@ -111,14 +111,5 @@ class ScatterPlot {
                 .attr("font-size", "12pt")
                 .attr("font-weight", "middle")
                 .text("Y-label");
-
-        self.svg
-                .append("text")
-                .attr("x", (self.config.width)/2)
-                .attr("y", 20)
-                .attr("font-size", "15pt")
-                .attr("text-anchor", "middle")
-                .attr("font-weight", 700)
-                .text("タイトル");
     }
 }
