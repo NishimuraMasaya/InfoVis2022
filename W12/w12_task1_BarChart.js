@@ -92,8 +92,7 @@ class BarChart {
             .attr("x", d => self.xscale( self.xvalue(d) ) )
             .attr("y", d => self.yscale( self.yvalue(d) ) )
             .attr("width", self.xscale.bandwidth())
-            .attr("height", d => self.inner_height - self.yscale( self.yvalue(d) ))
-            .attr("fill", d => self.config.cscale( self.cvalue(d) ));
+            .attr("height", d => self.inner_height - self.yscale( self.yvalue(d) ));
 
         self.xaxis_group
             .call(self.xaxis);

@@ -10,7 +10,6 @@ d3.csv("https://NishimuraMasaya.github.io/InfoVis2022/W12/nhk_news_covid19_domes
         input_data.forEach( d => {
             d.infected_day = +d.infected_day;
             d.deaths_day = +d.deaths_day;
-            d.day = dayOfWeekStr[(input_data.indexOf(d)+2)%7]
         });
 
         const color_scale = d3.scaleOrdinal( d3.schemeCategory10 );
