@@ -5,7 +5,7 @@ let filter = [];
 let dayOfWeekStr = ["月", "火", "水", "木", "金", "土", "日"];
 let count = 0;
 
-d3.csv("https://NishimuraMasaya.github.io/InfoVis2022/W12/nhk_news_covid19_domestic_daily_data.csv")
+d3.csv("https://NishimuraMasaya.github.io/InfoVis2022/FinalTask/nhk_news_covid19_domestic_daily_data.csv")
     .then( data => {
         input_data = data;
         input_data.forEach( d => {
