@@ -1,4 +1,4 @@
-﻿date,infected_day,infected_total,deaths_day,deaths_total
+﻿date,infected_day,infected_total,deaths_day,deaths_total,day
 2021/12/24,294,1730735,0,18386
 2021/12/25,319,1731054,1,18387
 2021/12/26,263,1731317,0,18387
